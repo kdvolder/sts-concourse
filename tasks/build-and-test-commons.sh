@@ -3,8 +3,8 @@ set -e
 workdir=`pwd` 
 
 cd commons-git
-mvn -Pe46 package
-#xvfb-run mvn -Pe46 integration-test
+#mvn -Pe46 package
+xvfb-run mvn -Pe46 integration-test
 
 cd $workdir
 timestamp=`date +"%s"`
