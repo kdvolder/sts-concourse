@@ -10,8 +10,15 @@ resources:
   source:
     branch: master
     uri: git@github.com:kdvolder/sts-concourse
+    private_key: {{rsa_id}}
     paths:
     - docker/**/*
+- name: docker-image
+  type: docker-image
+  source:
+    username: {{docker_hub_username}}
+    password: {{docker_hub_password}}
+    repository: kdvolder/sts3-build-env
 jobs:
 - name: build-docker-image
   serial: true
@@ -20,25 +27,23 @@ jobs:
     trigger: true
   - put: docker-image
     params:
-      build: docker-git/concourse/docker
-    get_params: 
-      skip_download: true
-
+      build: docker-git/docker
 - name: build-commons-update-site
   plan:
-  - get: commons-git
-    trigger: true
+  - aggregate:
+    - get: commons-git
+      trigger: true
+    - get: docker-image
+      passed:
+      - build-docker-image
+      trigger: true
   - task: hello-world
+    image: docker-image
     config:
       inputs:
       - name: commons-git
       platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: ubuntu
       run:
-        path: echo
+        path: which
         args:
-        - "Hello world!"
-        
+        - mvn
