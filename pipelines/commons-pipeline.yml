@@ -31,6 +31,7 @@ resources:
   type: s3
   source:
     bucket: s3-test.spring.io
+    region_name: {{s3_region}}
     access_key_id: {{s3_accesskey}}
     secret_access_key: {{s3_secretkey}}
     regexp: sts3/commons/snapshots/org.springsource.ide.eclipse.commons.site-[^\-]*-SNAPSHOT-([0-9]+).zip
