@@ -5,6 +5,8 @@ resources:
     branch: master
     uri: git@github.com:kdvolder/sts-concourse
     private_key: {{rsa_id}}
+    paths:
+    - tasks
 - name: commons-git
   type: git
   source:
