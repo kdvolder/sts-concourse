@@ -7,6 +7,6 @@ RUN apt-get update && apt-get install -y \
   maven \
   curl \
   xvfb \
-  icewm icewm-themes
+  icewm
 
 CMD /bin/bash  
