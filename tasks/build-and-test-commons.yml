@@ -7,5 +7,4 @@ platform: linux
 image: docker-image
 run:
   path: concourse-git/tasks/build-and-test-commons.sh
-  dir: commons-git
 
