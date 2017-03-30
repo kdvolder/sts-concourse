@@ -27,6 +27,13 @@ resources:
     username: {{docker_hub_username}}
     password: {{docker_hub_password}}
     repository: kdvolder/sts3-build-env
+- name: s3-commons-snapshot
+  type: s3
+  source:
+    bucket: s3-test.spring.io
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    regexp: sts3/commons/snapshots/org.springsource.ide.eclipse.commons.site-[^\-]*-SNAPSHOT-([0-9]+).zip
 jobs:
 - name: build-docker-image
   serial: true
@@ -50,3 +57,7 @@ jobs:
   - task: build-and-test-commons
     image: docker-image
     file: concourse-git/tasks/build-and-test-commons.yml
+  - put: s3-commons-snapshot
+    params:
+      acl: public-read
+      file: output/*.zip

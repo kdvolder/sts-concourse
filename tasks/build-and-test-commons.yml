@@ -1,9 +1,11 @@
 inputs:
 - name: commons-git
+- name: concourse-git
+outputs:
+- name: output
 platform: linux
 image: docker-image
 run:
-  path: xvfb-run
-  args: [ mvn, -Pe46, clean, integration-test]
+  path: concourse-git/tasks/build-and-test-commons.sh
   dir: commons-git
 
