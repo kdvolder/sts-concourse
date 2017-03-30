@@ -38,12 +38,13 @@ jobs:
   plan:
   - aggregate:
     - get: concourse-git
+      trigger: true
     - get: commons-git
       trigger: true
     - get: docker-image
       passed:
       - build-docker-image
       trigger: true
-  - task: hello-world
+  - task: commons-build-and-test
     image: docker-image
     file: concourse-git/tasks/build-commons.yml

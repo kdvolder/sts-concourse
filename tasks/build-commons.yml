@@ -5,4 +5,5 @@ image: docker-image
 run:
   path: mvn
   args: [ -Pe46, clean, package]
+  dir: commons-git
   
