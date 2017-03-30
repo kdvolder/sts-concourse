@@ -3,7 +3,7 @@ inputs:
 platform: linux
 image: docker-image
 run:
-  path: mvn
-  args: [ -Pe46, clean, integration-test]
+  path: xvfb-run
+  args: [ mvn, -Pe46, clean, integration-test]
   dir: commons-git
 
