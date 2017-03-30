@@ -4,6 +4,6 @@ platform: linux
 image: docker-image
 run:
   path: mvn
-  args: [ -Pe46, clean, package]
+  args: [ -Pe46, clean, integration-test]
   dir: commons-git
-  
+

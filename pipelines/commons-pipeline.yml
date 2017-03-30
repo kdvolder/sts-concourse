@@ -47,6 +47,6 @@ jobs:
       passed:
       - build-docker-image
       trigger: true
-  - task: commons-build-and-test
+  - task: build-and-test-commons
     image: docker-image
-    file: concourse-git/tasks/build-commons.yml
+    file: concourse-git/tasks/build-and-test-commons.yml
