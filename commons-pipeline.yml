@@ -1,4 +1,10 @@
 resources:
+- name: concourse-git
+  type: git
+  source:
+    branch: master
+    uri: git@github.com:kdvolder/sts-concourse
+    private_key: {{rsa_id}}
 - name: commons-git
   type: git
   source:
@@ -12,7 +18,7 @@ resources:
     uri: git@github.com:kdvolder/sts-concourse
     private_key: {{rsa_id}}
     paths:
-    - docker/**/*
+    - docker
 - name: docker-image
   type: docker-image
   source:
@@ -31,6 +37,7 @@ jobs:
 - name: build-commons-update-site
   plan:
   - aggregate:
+    - get: concourse-git
     - get: commons-git
       trigger: true
     - get: docker-image
@@ -39,11 +46,4 @@ jobs:
       trigger: true
   - task: hello-world
     image: docker-image
-    config:
-      inputs:
-      - name: commons-git
-      platform: linux
-      run:
-        path: which
-        args:
-        - mvn
+    file: concourse-git/tasks/build-commons.yml

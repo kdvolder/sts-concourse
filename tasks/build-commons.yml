@@ -1,0 +1,8 @@
+inputs:
+- name: commons-git
+platform: linux
+image: docker-image
+run:
+  path: mvn
+  args: [ -Pe46, clean, package]
+  
