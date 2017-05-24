@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
   curl
 
 # Add non-default repos
-RUN curl - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
+RUN curl https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
 
 # Install stuff
 RUN apt-get update && apt-get install -y \
