@@ -4,11 +4,8 @@ FROM ubuntu:16.04
 RUN apt-get update && apt-get install -y \
   curl
 
-# Add non-default repos
-RUN curl https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-
-# Install stuff
-RUN apt-get update && apt-get install -y \
+RUN ( curl https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add - ) && \
+apt-get update && apt-get install -y \
   git \
   openjdk-8-jdk \
   openjfx \
