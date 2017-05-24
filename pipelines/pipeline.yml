@@ -1,18 +1,18 @@
 resources:
-# - name: releng-repo
-#   type: git
-#   source:
-#     branch: master
-#     uri: git@github.com:kdvolder/sts-concourse
-#     private_key: {{rsa_id}}
-#     paths:
-#     - tasks
-# - name: repo
-#   type: git
-#   source:
-#     branch: master
-#     uri: git@github.com:spring-projects/spring-ide.git
-#     private_key: {{rsa_id}}
+- name: releng-repo
+  type: git
+  source:
+    branch: master
+    uri: git@github.com:kdvolder/sts-concourse
+    private_key: {{rsa_id}}
+    paths:
+    - tasks
+- name: repo
+  type: git
+  source:
+    branch: master
+    uri: git@github.com:spring-projects/spring-ide.git
+    private_key: {{rsa_id}}
 - name: docker-git
   type: git
   source:
@@ -36,26 +36,26 @@ jobs:
   - put: docker-image
     params:
       build: docker-git/docker
-# - name: build-and-test
-#   plan:
-#   - aggregate:
-#     - get: releng-repo
-#       trigger: true
-#     - get: repo
-#       trigger: true
-#     - get: docker-image
-#       passed:
-#       - build-docker-image
-#       trigger: true
-#   - do:
-#     - task: create-cf-test-space
-#       image: docker-image
-#       file: 
-#     - task: build-and-test
-#       image: docker-image
-#       file: releng-repo/tasks/build-and-test.yml
-#     ensure:
-#       task: destroy-cf-test-space
-#       image: docker-image
-#       file: releng-repo/tasks/destroy-cf-test-space
+- name: build-and-test
+  plan:
+  - aggregate:
+    - get: releng-repo
+      trigger: true
+    - get: repo
+      trigger: true
+    - get: docker-image
+      passed:
+      - build-docker-image
+      trigger: true
+  - do:
+    - task: create-cf-test-space
+      image: docker-image
+      file: 
+    - task: build-and-test
+      image: docker-image
+      file: releng-repo/tasks/build-and-test.yml
+    ensure:
+      task: destroy-cf-test-space
+      image: docker-image
+      file: releng-repo/tasks/destroy-cf-test-space
 
