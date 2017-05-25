@@ -12,7 +12,7 @@ space_file=cf-test-space/space-name
 space_env_file=cf-test-space/env.sh
 echo space_name=${space_name}
 
-cf login -a ${CF_TEST_API_URL} -u ${CF_TEST_USER} -p ${CF_TEST_PASSWORD} -o ${CF_TEST_ORG}
+yes "" | cf login -a ${CF_TEST_API_URL} -u ${CF_TEST_USER} -p ${CF_TEST_PASSWORD} -o ${CF_TEST_ORG}
 cf create-space ${space_name}
 echo "Space created: " ${space_name}
 echo $space_name > $space_file
