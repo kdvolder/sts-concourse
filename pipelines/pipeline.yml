@@ -57,5 +57,5 @@ jobs:
     ensure:
       task: destroy-cf-test-space
       image: docker-image
-      file: releng-repo/tasks/destroy-cf-test-space
+      file: releng-repo/tasks/destroy-cf-test-space.yml
 
