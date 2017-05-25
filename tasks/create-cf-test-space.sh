@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 echo "==== creating temporary cf test space ===="
 echo "PWD="`pwd`
