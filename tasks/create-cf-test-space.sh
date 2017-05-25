@@ -20,7 +20,7 @@ echo "Space name saved to: " $space_file
 echo "export CF_TEST_API_URL=${CF_TEST_API_URL}" > $space_env_file
 echo "export CF_TEST_USER=${CF_TEST_USER}" >> $space_env_file
 echo "export CF_TEST_PASSWORD=${CF_TEST_PASSWORD}" >> $space_env_file
-echo "export CF_TEST_ORG=${CF_TEST_PASSWORD}" >> $space_env_file
+echo "export CF_TEST_ORG=${CF_TEST_ORG}" >> $space_env_file
 echo "export CF_TEST_SPACE=${space_name}" >> $space_env_file
 
 echo "Script to set env vars generated: ${space_env_file}"
