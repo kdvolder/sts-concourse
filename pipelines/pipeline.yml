@@ -37,6 +37,7 @@ jobs:
     params:
       build: docker-git/docker
 - name: build-and-test
+  max_in_flight: 3
   plan:
   - aggregate:
     - get: releng-repo
@@ -50,7 +51,11 @@ jobs:
   - do:
     - task: create-cf-test-space
       image: docker-image
-      file: 
+      params:
+        CF_TEST_API_URL: {{cf_test_api_url}}
+        CF_TEST_USER: {{cf_test_user}}
+        CF_TEST_PASSWORD: {{cf_test_password}}
+      file: releng-repo/tasks/create-cf-test-space.yml
     - task: build-and-test
       image: docker-image
       file: releng-repo/tasks/build-and-test.yml
@@ -58,4 +63,3 @@ jobs:
       task: destroy-cf-test-space
       image: docker-image
       file: releng-repo/tasks/destroy-cf-test-space.yml
-

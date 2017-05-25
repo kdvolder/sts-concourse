@@ -1,5 +1,8 @@
 platform: linux
+inputs:
+- name: releng-repo
+- name: cf-test-space
 run:
-  path: echo
+  path: releng-repo/tasks/destroy-cf-test-space.sh
   args:
   - "This is a STUB for destroy-cf-test-space"

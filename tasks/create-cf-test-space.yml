@@ -1,5 +1,11 @@
 platform: linux
+params:
+  CF_TEST_API_URL:
+  CF_TEST_USER:
+  CF_TEST_PASSWORD:
+inputs:
+- name: releng-repo
+outputs:
+- name: cf-test-space
 run:
-  path: echo
-  args:
-  - "This is a STUB for create-cf-test-space"
+  path: releng-repo/tasks/create-cf-test-space.sh

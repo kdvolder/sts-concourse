@@ -2,6 +2,7 @@ platform: linux
 inputs:
 - name: repo
 - name: releng-repo
+- name: cf-test-space
 outputs:
 - name: output
 run:
