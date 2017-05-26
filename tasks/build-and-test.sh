@@ -21,5 +21,5 @@ xvfb-run mvn -Pe46 -Dsts.test.failure.ignore=false integration-test
 cd ${workdir}
 timestamp=`date +%s`
 tarfile=${workdir}/mvn-cache-out/sts3-${timestamp}.tar.gz
-tar -czvf ${tarfile} -C ${HOME} .m2/repository
+tar -czf ${tarfile} -C ${HOME} .m2/repository
 
