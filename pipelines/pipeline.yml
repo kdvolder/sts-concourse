@@ -21,6 +21,14 @@ resources:
     private_key: {{rsa_id}}
     paths:
     - docker
+- name: mvn-cache
+  type: s3
+  source:
+    bucket: {{s3_bucket}}
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    region_name: {{s3_region}}
+    regexp: mvn-caches/sts3-(.*).tar.gz
 - name: docker-image
   type: docker-image
   source:
@@ -59,6 +67,10 @@ jobs:
     - task: build-and-test
       image: docker-image
       file: releng-repo/tasks/build-and-test.yml
+      on_success:
+        put: mvn-cache
+        params:
+          file: mvn-cache/sts3-*.tar.gz
     ensure:
       task: destroy-cf-test-space
       image: docker-image
