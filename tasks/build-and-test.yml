@@ -3,8 +3,9 @@ inputs:
 - name: repo
 - name: releng-repo
 - name: cf-test-space
+- name: mvn-cache
 outputs:
 - name: output
-- name: mvn-cache
+- name: mvn-cache-out
 run:
   path: releng-repo/tasks/build-and-test.sh

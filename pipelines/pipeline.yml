@@ -56,6 +56,7 @@ jobs:
       passed:
       - build-docker-image
       trigger: true
+    - get: mvn-cache
   - do:
     - task: create-cf-test-space
       image: docker-image
@@ -70,7 +71,7 @@ jobs:
       on_success:
         put: mvn-cache
         params:
-          file: mvn-cache/sts3-*.tar.gz
+          file: mvn-cache-out/sts3-*.tar.gz
     ensure:
       task: destroy-cf-test-space
       image: docker-image
