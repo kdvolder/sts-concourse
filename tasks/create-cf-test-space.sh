@@ -24,6 +24,6 @@ echo "export CF_TEST_ORG=${CF_TEST_ORG}" >> $space_env_file
 echo "export CF_TEST_SPACE=${space_name}" >> $space_env_file
 
 echo "Script to set env vars generated: ${space_env_file}"
-echo "====================="
-cat ${space_env_file}
-echo "====================="
+# echo "====================="
+# cat ${space_env_file}
+# echo "====================="
