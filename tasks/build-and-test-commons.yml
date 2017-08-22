@@ -1,3 +1,4 @@
+platform: linux
 inputs:
 - name: commons-git
 - name: concourse-git
