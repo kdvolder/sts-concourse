@@ -13,7 +13,7 @@ fi
 source cf-test-space/env.sh
 
 cd repo
-xvfb-run mvn -Pe46 -Dsts.test.failure.ignore=false integration-test
+xvfb-run mvn -P${eclipse_profile} -Dsts.test.failure.ignore=false integration-test
 
 # We will likely get more stable test builds if we snapshot the maven cache from
 # a successful build and reuse that for the next build. This might avoid some
