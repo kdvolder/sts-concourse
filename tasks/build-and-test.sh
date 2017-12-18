@@ -20,6 +20,6 @@ xvfb-run mvn -P${eclipse_profile} -Dsts.test.failure.ignore=false integration-te
 # of the issues we see around tests failing with corrupt maven repo.
 cd ${workdir}
 timestamp=`date +%s`
-tarfile=${workdir}/mvn-cache-out/sts3-${timestamp}.tar.gz
+tarfile=${workdir}/mvn-cache-out/sts3-${eclipse_profile}-${timestamp}.tar.gz
 tar -czf ${tarfile} -C ${HOME} .m2/repository
 

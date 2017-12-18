@@ -21,14 +21,22 @@ resources:
     branch: {{branch}}
     uri: git@github.com:spring-projects/spring-ide.git
     private_key: {{rsa_id}}
-- name: mvn-cache
+- name: mvn-cache-e46
   type: s3
   source:
     bucket: {{s3_bucket}}
     access_key_id: {{s3_accesskey}}
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
-    regexp: mvn-caches/sts3-(.*).tar.gz
+    regexp: mvn-caches/sts3-e46-(.*).tar.gz
+- name: mvn-cache-e47
+  type: s3
+  source:
+    bucket: {{s3_bucket}}
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    region_name: {{s3_region}}
+    regexp: mvn-caches/sts3-e47-(.*).tar.gz
 - name: docker-image
   type: docker-image
   source:
@@ -44,7 +52,7 @@ jobs:
   - put: docker-image
     params:
       build: docker-git/docker
-- name: build-and-test
+- name: build-and-test-e46
   max_in_flight: 3
   plan:
   - aggregate:
@@ -68,8 +76,44 @@ jobs:
     - task: build-and-test
       image: docker-image
       file: releng-repo/tasks/build-and-test.yml
+      params:
+        eclipse_profile: e46
       on_success:
-        put: mvn-cache
+        put: mvn-cache-e46
+        params:
+          file: mvn-cache-out/sts3-*.tar.gz
+    ensure:
+      task: destroy-cf-test-space
+      image: docker-image
+      file: releng-repo/tasks/destroy-cf-test-space.yml
+- name: build-and-test-e47
+  max_in_flight: 3
+  plan:
+  - aggregate:
+    - get: releng-repo
+      trigger: true
+    - get: repo
+      trigger: true
+    - get: docker-image
+      passed:
+      - build-docker-image
+      trigger: true
+#    - get: mvn-cache
+  - do:
+    - task: create-cf-test-space
+      image: docker-image
+      params:
+        CF_TEST_API_URL: {{cf_test_api_url}}
+        CF_TEST_USER: {{cf_test_user}}
+        CF_TEST_PASSWORD: {{cf_test_password}}
+      file: releng-repo/tasks/create-cf-test-space.yml
+    - task: build-and-test
+      image: docker-image
+      file: releng-repo/tasks/build-and-test.yml
+      params:
+        eclipse_profile: e47
+      on_success:
+        put: mvn-cache-e47
         params:
           file: mvn-cache-out/sts3-*.tar.gz
     ensure:
