@@ -125,13 +125,9 @@ jobs:
         params:
           file: mvn-cache-out/sts3-*.tar.gz
       ensure:
-        aggregate:
-        - put: s3-tmp-folder
-          params:
-            file: tmp/tmp-*.tar.gz
-        - put: s3-test-reports-e47
-          params:
-            file: test-reports/test-reports-*.tar.gz
+        put: s3-test-reports-e47
+        params:
+          file: test-reports/test-reports-*.tar.gz
     ensure:
       task: destroy-cf-test-space
       image: docker-image
