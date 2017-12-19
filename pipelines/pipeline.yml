@@ -43,14 +43,6 @@ resources:
     username: {{docker_hub_username}}
     password: {{docker_hub_password}}
     repository: kdvolder/sts3-build-env
-- name: s3-tmp-folder
-  type: s3
-  source:
-    bucket: {{s3_bucket}}
-    access_key_id: {{s3_accesskey}}
-    secret_access_key: {{s3_secretkey}}
-    region_name: {{s3_region}}
-    regexp: junk/tmp-(.*).tar.gz
 - name: s3-test-reports-e47
   type: s3
   source:
@@ -58,7 +50,7 @@ resources:
     access_key_id: {{s3_accesskey}}
     secret_access_key: {{s3_secretkey}}
     region_name: {{s3_region}}
-    regexp: junk/test-reports-e47-(.*).tar.gz
+    regexp: build-results/test-reports-e47-(.*).tar.gz
 jobs:
 - name: build-docker-image
   serial: true

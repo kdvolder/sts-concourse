@@ -6,16 +6,10 @@ timestamp=`date +%s`
 touch /tmp/build-and-test.timestamp
 
 function finish {
-
     # Grab any surefire reports so we can save it for later inspection
     tarfile=${workdir}/test-reports/test-reports-${eclipse_profile}-${timestamp}.tar.gz
     cd $workdir/repo
     tar -czf ${tarfile} `find . -name surefire-reports`
-
-    # Grab contents of tmp dir so we can save it for later inspection
-    tarfile=${workdir}/tmp/tmp-${timestamp}.tar.gz
-    cd /tmp
-    tar -czf ${tarfile} `find . -maxdepth 1 -newer build-and-test.timestamp`
 }
 trap finish EXIT
 
