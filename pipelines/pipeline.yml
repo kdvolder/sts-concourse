@@ -128,6 +128,7 @@ jobs:
         put: s3-test-reports-e47
         params:
           file: test-reports/test-reports-*.tar.gz
+          acl: public-read
     ensure:
       task: destroy-cf-test-space
       image: docker-image
