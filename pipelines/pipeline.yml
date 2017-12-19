@@ -43,6 +43,14 @@ resources:
     username: {{docker_hub_username}}
     password: {{docker_hub_password}}
     repository: kdvolder/sts3-build-env
+- name: s3-tmp-folder
+  type: s3
+  source:
+    bucket: {{s3_bucket}}
+    access_key_id: {{s3_accesskey}}
+    secret_access_key: {{s3_secretkey}}
+    region_name: {{s3_region}}
+    regexp: junk/tmp-(.*).tar.gz
 jobs:
 - name: build-docker-image
   serial: true
@@ -116,6 +124,10 @@ jobs:
         put: mvn-cache-e47
         params:
           file: mvn-cache-out/sts3-*.tar.gz
+      ensure:
+        put: s3-tmp-folder
+        params:
+          file: tmp/tmp-*.tar.gz
     ensure:
       task: destroy-cf-test-space
       image: docker-image

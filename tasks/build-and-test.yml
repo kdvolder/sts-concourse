@@ -9,5 +9,6 @@ params:
 outputs:
 - name: output
 - name: mvn-cache-out
+- name: tmp
 run:
   path: releng-repo/tasks/build-and-test.sh
